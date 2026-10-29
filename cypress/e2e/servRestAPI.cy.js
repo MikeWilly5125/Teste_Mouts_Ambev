@@ -1,10 +1,10 @@
-import ServeRestApi from "../pages/ServeRestApi_page";
+import ServeRestApi from "../API/ServeRestApi_API";
 describe('Aplicacao serveRest API Usuarios', () => {
 
     beforeEach(() => {
         // necessario pegar uma nova senha a cada execução nao consegui gerar usuarui e recuperar o mesmo
-        const emailLogin = 'mike.inspededereira1234@gmail.com'
-        const senhaLogin = 'wefdewdewd'
+        const emailLogin = 'mike.inspedeerr@gmail.com'
+        const senhaLogin = '123@'
         ServeRestApi.login(emailLogin,senhaLogin);
 
     });

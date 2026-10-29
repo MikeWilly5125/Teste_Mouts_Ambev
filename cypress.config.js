@@ -10,8 +10,8 @@ module.exports = defineConfig({
 
     baseUrl: 'https://front.serverest.dev/',
     env: {
-      username: 'mike.inspeferreira@gmail.com', //process.env.USER_ADMIN
-      password: 'Teste1234',
+      username: 'mike.Marquezin@gmail.com', //process.env.USER_ADMIN
+      password: '1234@',
       baseUrl: 'https://front.serverest.dev'
     },
     setupNodeEvents(on, config) {

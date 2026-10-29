@@ -34,8 +34,6 @@ describe('Aplicacao Serve Rest Web', () => {
 
   });
 
-
-
   it('Validar - Pesquisa de produto', () => {
     SeveRest.buscaProduto();
 

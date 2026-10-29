@@ -42,14 +42,14 @@ class SeveRest_page {
           cy.get(btEntrar).click().should('be.visible');
           cy.wait(1000);
 
-          cy.get('.jumbotron').invoke('text').then(val => {
-               // Email/senhainvalida = Cadastrar
-               if (val.includes('Email e/ou senha inválidos')) {
-                    this.cadastroPadrao();
-                    cy.visit('/');
-               }
+          // cy.get('.jumbotron').invoke('text').then(val => {
+          //      // Email/senhainvalida = Cadastrar
+          //      if (val.includes('Email e/ou senha inválidos')) {
+          //           this.cadastroPadrao();
+          //           cy.visit('/');
+          //      }
 
-          });
+          // });
 
           cy.visit('/');
           cy.get(campoEmail).type(Cypress.env('username')).should('be.visible')
@@ -160,7 +160,7 @@ class SeveRest_page {
           cy.url().should('include', 'home');
           const produtos = ['Ergonomic Plastic Bacon', 'Tasty Frozen Car', 'Oriental Steel Shirt', 'Awesome Granite Towels', 'Unbranded Concrete Pizza'];
           const produtoSorteado = produtos[Math.floor(Math.random() * produtos.length)];
-
+     
           cy.get(CampoBuscaProduto).type('carro').should('be.visible')
                .and('be.enabled');
 
@@ -196,10 +196,11 @@ class SeveRest_page {
                .and('be.enabled');
           cy.get('[data-testid="checkbox"]').click();
 
-          cy.get(btCadastrar).should('be.visible')
+          cy.get(btCadastrar,{timeout:1000}).should('be.visible')
                .and('be.enabled').click()
-
+    
           // Cadasrar
+          cy.wait(1000)
           cy.get('[data-testid="cadastrarProdutos"]').click();
 
           cy.get(campoNomeProduto).type('carro');
@@ -222,7 +223,7 @@ class SeveRest_page {
      }
 
      conteudoProduto() {
-          cy.get('.card').invoke('text').then(val => {
+          cy.get('.card', {timeout:1000}).invoke('text').then(val => {
                cy.wrap(val).should('include', 'Preço: $')
 
           });

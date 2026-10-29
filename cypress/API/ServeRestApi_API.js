@@ -1,8 +1,8 @@
 require('dotenv').config()
+import { PageBase } from "../pages/PageBase";
 
-
-class ServeRestApi_page {
-    //    usar pugin cy.api
+class ServeRestApi_API extends PageBase {
+    //    usar pugin cy.api() para ver os logs.
     login(emailLogin, senhaLogin) {
        cy.request({
             method: 'POST',
@@ -14,6 +14,7 @@ class ServeRestApi_page {
         }).then((response) => {
             Cypress.env('token', response.body.authorization)
             expect(response.status).to.eq(200)
+             
         });
     };
 
@@ -25,33 +26,33 @@ class ServeRestApi_page {
                 Authorization: `Bearer ${Cypress.env('token')}`
             }
         }).then((response) => {
-            expect(response.status).to.eq(200)
+            expect(response.status).to.eq(200);
         });
 
     };
 
-
     cadastrarUsuario() {
         const numeroAleatorio = Math.floor(Math.random() * 10001);
-        const email = `Mike.inspeferreira${numeroAleatorio}@gmail.com`;
-        const msg = 'Cadastro realizado com sucesso'
+        const nomeCompleto = PageBase.prototype.gerarNomeCompleto();
+        const email = PageBase.prototype.gerarEmail();
+        const senha = PageBase.prototype.gerarNumero();
+        const msg = 'Cadastro realizado com sucesso';
 
         cy.request({
             method: 'POST',
             url: 'https://serverest.dev/usuarios',
             body: {
-                "nome": `BotAutomacao ${numeroAleatorio}`,
-                "email": `${email}`,
-                "password": `senhaAutomacao${numeroAleatorio}`,
+                "nome":nomeCompleto ,
+                "email": email,
+                "password": `senhaAutomacao${senha}`,
                 "administrador": "true"
             }
         }).then((response) => {
-            Cypress.env('_id', response.body._id)
-            expect(response.body.message).to.eq(`${msg}`)
-            expect(response.status).to.eq(201)
-            cy.log(response.allRequestResponses[1])
+            Cypress.env('_id', response.body._id);
+            expect(response.body.message).to.eq(`${msg}`);
+            expect(response.status).to.eq(201);
             Cypress.env('novoCadastroEmail', `${email}`);
-            Cypress.env('novoCadastroSenha', `Testador${numeroAleatorio}`)
+            Cypress.env('novoCadastroSenha', `senhaAutomacao${senha}`);
         })
 
     };
@@ -292,4 +293,4 @@ class ServeRestApi_page {
 
 
 
-} export default new ServeRestApi_page()
+} export default new ServeRestApi_API()
